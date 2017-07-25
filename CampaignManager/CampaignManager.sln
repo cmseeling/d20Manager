@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.16
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CampaignManager.Web", "CampaignManager.Web\CampaignManager.Web.csproj", "{BBDFCF05-CFB4-4EB7-8BAE-9738A765CEC0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CampaignManager.Data", "CampaignManager.Data\CampaignManager.Data.csproj", "{AA3B1D37-D327-44B9-9BF3-369570496F05}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BBDFCF05-CFB4-4EB7-8BAE-9738A765CEC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBDFCF05-CFB4-4EB7-8BAE-9738A765CEC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBDFCF05-CFB4-4EB7-8BAE-9738A765CEC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBDFCF05-CFB4-4EB7-8BAE-9738A765CEC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA3B1D37-D327-44B9-9BF3-369570496F05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA3B1D37-D327-44B9-9BF3-369570496F05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA3B1D37-D327-44B9-9BF3-369570496F05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA3B1D37-D327-44B9-9BF3-369570496F05}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
