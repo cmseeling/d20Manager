@@ -1,8 +1,5 @@
 ﻿using CampaignManager.Data.Models;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace CampaignManager.Business.Interfaces
 {
@@ -11,6 +8,8 @@ namespace CampaignManager.Business.Interfaces
         IQueryable<Campaign> GetCampaigns();
 
         Campaign GetCampaign(int id);
+
+        Campaign GetCampaign(int id, bool includeCharacters);
 
         bool CampaignExists(int id);
 

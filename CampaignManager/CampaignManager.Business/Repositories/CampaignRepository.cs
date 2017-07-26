@@ -1,10 +1,8 @@
 ﻿using CampaignManager.Business.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using CampaignManager.Data.Models;
-using System.Linq;
 using CampaignManager.Data;
+using CampaignManager.Data.Models;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace CampaignManager.Business.Repositories
 {
@@ -34,6 +32,14 @@ namespace CampaignManager.Business.Repositories
 
         public Campaign GetCampaign(int id)
         {
+            return GetCampaign(id, false);
+        }
+
+        public Campaign GetCampaign(int id, bool includeCharacters)
+        {
+            if(includeCharacters)
+                return _context.Campaigns.Include(c=>c.Characters).FirstOrDefault(c => c.Id == id);
+
             return _context.Campaigns.FirstOrDefault(c => c.Id == id);
         }
 

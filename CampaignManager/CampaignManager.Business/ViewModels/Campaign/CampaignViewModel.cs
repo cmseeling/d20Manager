@@ -1,14 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
-namespace CampaignManager.Business.ViewModels.Campaign
+namespace CampaignManager.Business.ViewModels
 {
     public class CampaignViewModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
+    }
+
+    public class CampaignWithCharactersViewModel
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public IEnumerable<CharacterViewModel> Characters { get; set; } = new List<CharacterViewModel>();
     }
 
     public class CreateCampaignViewModel

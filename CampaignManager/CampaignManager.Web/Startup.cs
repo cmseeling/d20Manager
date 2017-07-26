@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using CampaignManager.Business.Interfaces;
+using CampaignManager.Business.Repositories;
+using CampaignManager.Business.ViewModels;
+using CampaignManager.Data;
+using CampaignManager.Data.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Configuration;
-using CampaignManager.Data;
-using Microsoft.EntityFrameworkCore;
-using CampaignManager.Data.Models;
-using CampaignManager.Business.ViewModels.Campaign;
 
 namespace CampaignManager.Web
 {
@@ -37,13 +34,17 @@ namespace CampaignManager.Web
 
             var connectionString = Startup.Configuration["connectionStrings:connectionStrings"];
             services.AddDbContext<CampaignContext>(o => o.UseSqlServer(connectionString));
+
+            services.AddScoped<ICampaignRepository, CampaignRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, CampaignContext campaignContext)
         {
             loggerFactory.AddConsole();
             loggerFactory.AddDebug();
+
+            campaignContext.EnsureSeedDataForContext();
 
             if (env.IsDevelopment())
             {
@@ -54,7 +55,21 @@ namespace CampaignManager.Web
 
             AutoMapper.Mapper.Initialize(cfg =>
             {
+                #region Campaign
+                //campaign read
                 cfg.CreateMap<Campaign, CampaignViewModel>();
+                cfg.CreateMap<Campaign, CampaignWithCharactersViewModel>();
+                cfg.CreateMap<Campaign, EditCampaignViewModel>();
+                //campaign write
+                cfg.CreateMap<CreateCampaignViewModel, Campaign>();
+                cfg.CreateMap<EditCampaignViewModel, Campaign>();
+                #endregion
+
+                #region Character
+                //character read
+                cfg.CreateMap<Character, CharacterViewModel>();
+                //character write
+                #endregion
             });
 
             app.UseMvc(routes =>

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using CampaignManager.Business.Interfaces;
-using CampaignManager.Business.ViewModels.Campaign;
+using CampaignManager.Business.ViewModels;
 using CampaignManager.Data.Models;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
@@ -12,11 +12,11 @@ using System.Threading.Tasks;
 namespace CampaignManager.Web.Controllers
 {
     [Route("api/[controller]")]
-    public class CampaignController : Controller
+    public class CampaignsController : Controller
     {
         ICampaignRepository _repository;
 
-        public CampaignController(ICampaignRepository repository)
+        public CampaignsController(ICampaignRepository repository)
         {
             _repository = repository;
         }
@@ -29,19 +29,25 @@ namespace CampaignManager.Web.Controllers
             return Ok(results);
         }
 
-        [HttpGet]
-        public IActionResult GetCampaign(int id)
+        [HttpGet("{id}", Name = "GetCampaign")]
+        public IActionResult GetCampaign(int id, bool includeCharacters = false)
         {
-            var campaign = _repository.GetCampaign(id);
+            var campaign = _repository.GetCampaign(id, includeCharacters);
             if (campaign == null)
                 return NotFound();
+
+            if(includeCharacters)
+            {
+                var resultWithCharacters = Mapper.Map<CampaignWithCharactersViewModel>(campaign);
+                return Ok(resultWithCharacters);
+            }
 
             var result = Mapper.Map<CampaignViewModel>(campaign);
 
             return Ok(result);
         }
 
-        [HttpPost]
+        [HttpPost("")]
         public IActionResult CreateCampaign([FromBody]CreateCampaignViewModel campaignViewModel)
         {
             if (campaignViewModel == null)
@@ -60,7 +66,7 @@ namespace CampaignManager.Web.Controllers
             return CreatedAtRoute("GetCampaign", new { id = createdCampaign.Id }, createdCampaign);
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         public IActionResult UpdateCampaign(int id, [FromBody]EditCampaignViewModel campaignViewModel)
         {
             if (campaignViewModel == null)
@@ -82,7 +88,7 @@ namespace CampaignManager.Web.Controllers
 
         }
 
-        [HttpPatch]
+        [HttpPatch("{id}")]
         public IActionResult PartialUpdateCampaign(int id, [FromBody] JsonPatchDocument<EditCampaignViewModel> patchDoc)
         {
             //checking for valid patchDoc
@@ -118,7 +124,7 @@ namespace CampaignManager.Web.Controllers
             return NoContent();
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public IActionResult DeleteCampaign(int id)
         {
             var campaignModel = _repository.GetCampaign(id);

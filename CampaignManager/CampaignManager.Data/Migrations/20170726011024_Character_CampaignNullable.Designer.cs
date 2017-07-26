@@ -9,9 +9,10 @@ using CampaignManager.Data.Enums;
 namespace CampaignManager.Data.Migrations
 {
     [DbContext(typeof(CampaignContext))]
-    partial class CampaignContextModelSnapshot : ModelSnapshot
+    [Migration("20170726011024_Character_CampaignNullable")]
+    partial class Character_CampaignNullable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")
