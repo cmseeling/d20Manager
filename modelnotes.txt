@@ -1,0 +1,13 @@
+User
+
+Character
+	Stats
+	Skills
+	Feats
+	Abilities (spells etc.)
+	Items
+	Notes
+
+Campaign - DM tool?
+	Characters
+	Encounters
